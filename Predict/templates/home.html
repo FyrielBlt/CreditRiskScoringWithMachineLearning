@@ -1,0 +1,174 @@
+<!-- home.html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Prédiction de Crédit Madagascar</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body, h1, h2, h3, h4, h5, h6 {
+            font-family: "Raleway", sans-serif;
+        }
+
+        body, html {
+            height: 100%;
+            line-height: 1.8;
+        }
+
+        /* Full height image header */
+        .bgimg-1 {
+            background-position: center;
+            background-size: cover;
+            background-image: url("../static/images/cover.jfif");
+            min-height: 100%;
+        }
+
+        .w3-bar .w3-button {
+            padding: 18px;
+        }
+
+        div.w3-container {
+            text-align: justify;
+            text-justify: inter-word;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navbar (sit on top) -->
+<div class="w3-top">
+    <div class="w3-bar w3-white w3-card" id="myNavbar">
+        <a href="#home" class="w3-bar-item w3-button w3-wide">Risque de défaut</a>
+        <!-- Right-sided navbar links -->
+        <div class="w3-right w3-hide-small">
+            <a href="#about" class="w3-bar-item w3-button">À PROPOS</a>
+            <a href="#predict" onclick="w3_close()" class="w3-bar-item w3-button"><i class="fa fa-bar-chart"></i> PRÉDIRE</a>
+            <a href="#contact" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i> CONTACT</a>
+        </div>
+        <!-- Hide right-floated links on small screens and replace them with a menu icon -->
+
+        <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="w3_open()">
+            <i class="fa fa-bars"></i>
+        </a>
+    </div>
+</div>
+
+<!-- Sidebar on small screens when clicking the menu icon -->
+<nav class="w3-sidebar w3-bar-block w3-black w3-card w3-animate-left w3-hide-medium w3-hide-large" style="display:none"
+     id="mySidebar">
+    <a href="javascript:void(0)" onclick="w3_close()" class="w3-bar-item w3-button w3-large w3-padding-18">Fermer ×</a>
+    <a href="#about" onclick="w3_close()" class="w3-bar-item w3-button">À PROPOS</a>
+    <a href="#predict" onclick="w3_close()" class="w3-bar-item w3-button">PRÉDIRE</a>
+    <a href="#contact" onclick="w3_close()" class="w3-bar-item w3-button">CONTACT</a>
+</nav>
+
+<!-- Header with full-height image -->
+<header class="bgimg-1 w3-display-container" id="home">
+    <div class="w3-display-left w3-text-white" style="padding:48px">
+        <span class="w3-xxlarge w3-text-black" style="color:#026440">Prédire les défauts de paiement</span><br>
+        <p><a href="#predict" class="w3-button w3-black w3-greyscale w3-padding-large w3-large w3-margin-top w3-opacity w3-hover-opacity-off"><b>Prédire</b></a></p>
+    </div>
+    <div class="w3-display-bottomleft w3-text-grey w3-large" style="padding:24px 30px">
+        <a href="https://www.facebook.com/bfigoupe" target="_blank">
+            <i class="fa fa-facebook-official w3-hover-opacity"></i></a>&emsp;
+        <a href="https://www.linkedin.com/company/bfigroupe/" target="_blank">
+            <i class="fa fa-linkedin w3-hover-opacity "></i></a>&emsp;
+    </div>
+</header>
+
+<!-- About Section -->
+<div class="w3-container w3-light-grey" style="padding:70px 35px" id="about">
+
+    <h2 class="w3-center" style="color:#026440"><b>Prédire les défauts de paiement pour MDG</b></h2>
+    <p class="w3-large">"Notre application "Prédiction de Crédit Madagascar" offre une solution novatrice et précise pour évaluer
+        la faisabilité des prêts bancaires. En utilisant des données provenant de la Banque Centrale de Madagascar, nous avons mis
+        au point un système avancé de classification des dossiers de crédit en trois catégories distinctes, facilitant ainsi le processus
+        de décision pour les institutions financières. Grâce à des algorithmes de machine learning sophistiqués, notre application est
+        en mesure de prédire avec fiabilité la capacité des clients à rembourser un prêt. Que ce soit pour les prêteurs cherchant à
+        minimiser les risques ou pour les clients à la recherche d'une évaluation transparente de leur situation financière,
+        notre plateforme offre une solution accessible et sécurisée. Avec une interface utilisateur conviviale,
+        "Prédiction de Crédit Madagascar" vise à améliorer l'accès au crédit tout en garantissant la sécurité
+        et la confidentialité des données des utilisateurs."</p>
+    <div class="w3-center" style="padding:60px 95px">
+        <img class="w3-image w3-round-large" src="../static/images/BfiLogo.png" width="600" height="400">
+    </div>
+</div>
+
+<!-- predict Section -->
+<!-- Form pour soumettre le fichier -->
+<div class="w3-container w3-light-grey" style="padding:108px 35px" id="predict">
+  <div class="w3-center" style="background-color: #E0E0E0">
+      <div class="w3-center" style="padding:60px 85px">
+          <h2 class="w3-center" style="color:#026440"><b>Prédire</b></h2>
+          <form id="predict-form" method="POST" enctype="multipart/form-data" action="/predict">
+              <input type="file" name="file" id="file_demo" placeholder="Upload test file" required>
+              <button class="w3-button w3-black" type="submit">SOUMETTRE</button>
+          </form>
+          {% if prediction_text %}
+          <div class="w3-panel w3-pale-green w3-border">
+              <p>{{ prediction_text }}</p>
+          </div>
+          {% endif %}
+      </div>
+      
+        <p>Vous pouvez télécharger l'échantillon de données pour la prédiction<br>
+        <p> </p>
+        <a href="static/BCM_DATAJOINTURE3.csv" download> 
+          <button class="w3-button w3-black" id="download-csv">Télécharger</button></a>
+        
+  </div>
+</div>
+
+
+<!-- Contact Section -->
+<div class="w3-container w3-light-grey" style="padding:60px 35px" id="contact">
+    <h2 class="w3-center" style="color:#026440"><b>CONTACT</b></h2>
+    <p class="w3-center w3-large">Entrons en contact. Envoyez-nous un message:</p>
+    <div style="margin-top:48px">
+        <p class="w3-large"><b>BFI GROUPE , Tunisie</b></p>
+        <p><i class="fa fa-map-marker fa-fw w3-xxlarge w3-margin-right"></i> 5 Rue Ghar el Melh, Tunis 1053</p>
+        <p><i class="fa fa-envelope fa-fw w3-xxlarge w3-margin-right"> </i> Email: contact@bfigroupe.com</p>
+
+        <form action="mailto: contact@bfigroupe.com" enctype="text/plain" target="_blank">
+            <!-- <form action="static/action_page.php" method="get" target="_blank">-->
+            <p><input class="w3-input w3-border" type="text" placeholder="Nom" required name="Name"></p>
+            <p><input class="w3-input w3-border" type="text" placeholder="Email" required name="Email"></p>
+            <p><input class="w3-input w3-border" type="text" placeholder="Sujet" required name="Subject"></p>
+            <p><input class="w3-input w3-border" type="text" placeholder="Message" required name="Message"></p>
+            <p>
+                <button class="w3-button w3-black" type="submit">
+                    <i class="fa fa-paper-plane"></i> Envoyer Message
+                </button>
+            </p>
+        </form>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="w3-center w3-black w3-padding-64">
+    <a href="#home" class="w3-button w3-light-grey"><i class="fa fa-arrow-up w3-margin-right"></i>Remonter</a>
+    <div class="w3-xlarge w3-section">
+        <a href="https://www.facebook.com/bfigroupe" target="_blank">
+            <i class="fa fa-facebook-official w3-hover-opacity"></i></a>&emsp;
+        <a href="https://www.linkedin.com/company/bfigroupe/" target="_blank">
+            <i class="fa fa-linkedin w3-hover-opacity"></i></a>&emsp;
+    </div>
+</footer>
+
+<script>
+    // Script pour ouvrir et fermer le sidebar
+    function w3_open() {
+        document.getElementById("mySidebar").style.display = "block";
+    }
+
+    function w3_close() {
+        document.getElementById("mySidebar").style.display = "none";
+    }
+</script>
+
+</body>
+</html>

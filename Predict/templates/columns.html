@@ -1,0 +1,88 @@
+from flask import Flask, render_template, request, redirect, url_for
+import pandas as pd
+import joblib
+
+app = Flask(__name__)
+
+# Chemins vers les fichiers d'encodeurs et le modèle
+ordinal_encoder_path = 'D:\\pfe\\SCORINGBCM\\encoder\\ordinal_encoder.pkl'
+one_hot_encoder_path = 'D:\\pfe\\SCORINGBCM\\encoder\\one_hot_encoder.pkl'
+model_path = 'D:/pfe/SCORINGBCM/DATASET/random_forest_model.pkl'
+
+# Charger l'encodeur ordinal, l'encodeur one-hot et le modèle
+ordinal_encoder = joblib.load(ordinal_encoder_path)
+one_hot_encoder = joblib.load(one_hot_encoder_path)
+model = joblib.load(model_path)
+
+selected_columns = [
+   'DUREE_CONTRAT', 'MATURITECODE_', 'PERIODICITE_CREDIT', 'TAUXINTERET_',
+   'TYPEAMORTISSEMENT_', 'IDINT_', 'BIRTHPLACE_', 'GENDAR_', 'NBRPERCH_',
+   'PROFESSION', 'DISTRICTCODE_', 'SITUATION_FAMILIALE', 'LOCATAIRE',
+   'DESCRIPTION_CATEGORYENG', 'DESCRIPTION_TYPEENG',
+   'DESCRIPTION_NATUREENG', 'FINANCIAL_INSTITUTION', 'Total_MONTANTAGIOS_',
+   'Total_MONTANTDEBLOCAGE_', 'Total_MONTANTPERTE_',
+   'Classification_Target', 'chevauchement_contrat',
+   'montant_total_credit', 'MONTANT_CREDIT_log',
+   'Nombre_Mois_Ouverture_Contrat'
+]
+
+colonnes_ordinal = [
+    'MATURITECODE_', 'PERIODICITE_CREDIT', 'Classification_Target', 'BIRTHPLACE_',            
+    'PROFESSION', 'DISTRICTCODE_', 'DESCRIPTION_TYPEENG',        
+    'DESCRIPTION_NATUREENG', 'FINANCIAL_INSTITUTION'
+]
+
+colonnes_one_hot = [
+    'TYPEAMORTISSEMENT_', 'GENDAR_', 'SITUATION_FAMILIALE', 'LOCATAIRE', 'DESCRIPTION_CATEGORYENG'
+]
+
+def apply_encodings(data):
+    # Assurez-vous que les colonnes sélectionnées sont dans le bon ordre et exactement les mêmes que celles utilisées pour l'entraînement
+    data_selected = data[selected_columns]
+
+    # Appliquer l'encodage ordinal
+    data_encoded_ordinal = ordinal_encoder.transform(data_selected[colonnes_ordinal])
+    data_encoded_ordinal_df = pd.DataFrame(data_encoded_ordinal, columns=colonnes_ordinal)
+    
+    # Appliquer l'encodage one-hot
+    data_encoded_one_hot = one_hot_encoder.transform(data_selected[colonnes_one_hot])
+    data_encoded_one_hot_df = pd.DataFrame(data_encoded_one_hot, columns=one_hot_encoder.get_feature_names_out(colonnes_one_hot))
+    
+    # Retirer les colonnes originales qui ont été encodées
+    data_remaining = data_selected.drop(columns=colonnes_ordinal + colonnes_one_hot)
+    
+    # Combiner les colonnes encodées avec les colonnes restantes
+    data_encoded = pd.concat([data_remaining, data_encoded_ordinal_df, data_encoded_one_hot_df], axis=1)
+    
+    return data_encoded
+
+
+# Route pour la page d'accueil
+# Route to handle prediction after file submission
+@app.route('/predict', methods=['POST'])
+def predict():
+    if 'file' not in request.files:
+        return redirect(url_for('home'))
+
+    file = request.files['file']
+    if file.filename == '':
+        return redirect(url_for('home'))
+
+    # Read the CSV file
+    data = pd.read_csv(file)
+
+    # Apply encodings to the data
+    encoded_data = apply_encodings(data)
+
+    # Make predictions using the model
+    predictions = model.predict(encoded_data)
+
+    # Add predictions to the DataFrame
+    encoded_data['Predicted_Class'] = predictions
+
+    # Return the predicted results as HTML table
+    return encoded_data.to_html(index=False)
+
+
+if __name__ == '__main__':
+    app.run(debug=True)

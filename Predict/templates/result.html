@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home Credit - Default Risk</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body, h1, h2, h3, h4, h5, h6 {font-family: "Raleway", sans-serif}
+        body, html {
+            height: 100%;
+            line-height: 1.8;
+            margin: 0;
+            padding: 0;
+        }
+        .w3-bar .w3-button {
+            padding: 18px;
+        }
+        .mystyle {
+            width: 80%;
+            margin: auto;
+            margin-top: 40px; /* Ajustement pour l'espace avant le tableau */
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+        .mystyle th, .mystyle td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .mystyle th {
+            background-color: #f2f2f2;
+        }
+        .mystyle tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .mystyle tr:hover {
+            background-color: #ddd;
+            cursor: pointer;
+        }
+        .center-table {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .w3-container {
+            margin: 20px auto;
+            max-width: 600px;
+            text-align: center; /* Centrer le contenu */
+        }
+        .green-text {
+            color: green; /* Couleur du texte vert */
+        }
+        .search-container {
+            display: flex;
+            align-items: center;
+            justify-content: center; /* Centrer horizontalement */
+            margin-bottom: 10px;
+        }
+        .search-container input[type=text] {
+            padding: 10px;
+            margin-right: 5px;
+            flex: 1;
+        }
+        .filter-select {
+            padding: 10px;
+        }
+        .accepted {
+            background-color: lightgreen !important; /* Couleur de fond pour les prédictions Accepté */
+        }
+        .rejected {
+            background-color: red !important; /* Couleur de fond pour les prédictions Refusé */
+        }
+        .w3-button.w3-light-grey {
+            text-align: left; /* Aligner le texte du bouton "Revenir en haut" à gauche */
+        }
+        .footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+        }
+        .footer a {
+            color: white;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="w3-top">
+        <div class="w3-bar w3-white w3-card" id="myNavbar">
+            <a href="/" class="w3-bar-item w3-button w3-wide">Home Credit - Default Risk</a>
+            <div class="w3-right w3-hide-small">
+                <a href="#about" class="w3-bar-item w3-button">ABOUT</a>
+                <a href="#contact" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i> CONTACT</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Espace pour les résultats -->
+    <div style="height: 80px;"></div>
+
+    <!-- Afficher "ok" en haut du tableau -->
+    <div class="w3-container center-table">
+        <h2>Résultat</h2>
+    </div>
+
+    <!-- Tableau avec barre de recherche et filtre -->
+    <div class="center-table">
+        <div class="w3-container">
+            <div class="search-container">
+                <input type="text" id="searchInput" onkeyup="searchTable()" placeholder="Rechercher par Référence Contrat...">
+                <select id="filterSelect" class="filter-select" onchange="filterTable()">
+                    <option value="Tous">Tous</option>
+                    <option value="Accepté">Accepté</option>
+                    <option value="Refusé">Refusé</option>
+                </select>
+            </div>
+        </div>
+        <table class="mystyle">
+            <thead>
+                <tr>
+                    <th>Référence Contrat</th>
+                    <th>Probabilité Saine</th>
+                    <th>Probabilité en souffrance</th>
+                    <th>Probabilité douteuse</th>
+                    <th>Prediction</th>
+                    <th>Decision finale</th>
+                </tr>
+            </thead>
+            <tbody>
+    {% for row in results %}
+        <tr>
+            <td>{{ row['REFERENCECONTRAT_'] }}</td>
+            <td>{{ row['Probability_SAINE'] }}</td>
+            <td>{{ row['Probability_EN SOUFFRANCE'] }}</td>
+            <td>{{ row['Probability_DOUTEUSE'] }}</td>
+            <td>{{ row['Prediction'] }}</td>
+            <td class="{% if row['Decision Finale'] == 'Accepté' %}accepted{% elif row['Decision Finale'] == 'Refusé' %}rejected{% endif %}">{{ row['Decision Finale'] }}</td>
+        </tr>
+    {% endfor %}
+</tbody>
+
+        </table>
+    </div>
+
+    <!-- Bouton "Revenir en haut" -->
+    <div class="footer">
+        <a href="#" class="w3-button w3-light-grey"><i class="fa fa-arrow-up w3-margin-right"></i>Revenir en haut</a>
+    </div>
+
+    <script>
+        // Fonctions de filtrage et de recherche
+        function searchTable() {
+            const input = document.getElementById('searchInput');
+            const filter = input.value.toUpperCase();
+            const rows = document.querySelectorAll('.mystyle tbody tr');
+
+            rows.forEach(row => {
+                const reference = row.getElementsByTagName('td')[0].textContent.toUpperCase();
+                if (reference.indexOf(filter) > -1) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+
+        function filterTable() {
+            const select = document.getElementById('filterSelect');
+            const filter = select.value.toUpperCase();
+            const rows = document.querySelectorAll('.mystyle tbody tr');
+
+            rows.forEach(row => {
+                const decision = row.querySelector('td:last-child').textContent.trim().toUpperCase();
+                if (filter === 'TOUS' || decision === filter) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
