@@ -31,24 +31,24 @@ Il est d'abord dirigé vers une page d'accueil.
 
 Il peut ensuite naviguer vers l'interface "À Propos" pour comprendre les fonctionnalités et l'objectif du projet.
 
-![Aperçu de l'application]([chemin/vers/ton/image.png]())
-
 ![Aperçu de l'application](https://github.com/FyrielBlt/creditscoring/blob/main/c1.PNG)
+
+![Aperçu de l'application](https://github.com/FyrielBlt/creditscoring/blob/main/c2.PNG)
 Une fois prêt, l'utilisateur peut télécharger un fichier de données au format CSV qu'il soumet à
 l'application pour évaluer les scores de crédit. 
 En option, il peut également utiliser un fichier existant comme test pour évaluer la performance
 du modèle.
-![Aperçu de l'application](chemin/vers/ton/image.png)
+![Aperçu de l'application](https://github.com/FyrielBlt/creditscoring/blob/main/c3.PNG)
 Une fois le calcul effectué, l'utilisateur reçoit les scores de probabilité indiquant l'appartenance de
 l'emprunteur à chaque classe. Les résultats peuvent être filtrés selon les critères désirés : affichage
 uniquement des dossiers acceptés, refusés, ou les deux simultanément. Les dossiers acceptés sont
 marqués en vert tandis que les dossiers refusés sont indiqués en rouge pour une visualisation claire
 et rapide. De plus, l'application permet une recherche efficace par référence de dossier, offrant
 ainsi une expérience utilisateur fluide et personnalisée.
-![Aperçu de l'application](chemin/vers/ton/image.png)
+![Aperçu de l'application](https://github.com/FyrielBlt/creditscoring/blob/main/c4.PNG)
 L’utilisateur a également la possibilité de contacter le groupe BFI pour plus d'informations ou
 d'assistance.
-![Aperçu de l'application](chemin/vers/ton/image.png)
+![Aperçu de l'application](https://github.com/FyrielBlt/creditscoring/blob/main/c5.PNG)
 📚 Conclusion 
 Après une immersion approfondie dans le domaine métier et les concepts clés, nous avons procédé
 au traitement des données en sélectionnant avec rigueur les variables les plus pertinentes à l'aide
