@@ -31,7 +31,7 @@ Il est d'abord dirigé vers une page d'accueil.
 
 Il peut ensuite naviguer vers l'interface "À Propos" pour comprendre les fonctionnalités et l'objectif du projet.
 
-![Aperçu de l'application](chemin/vers/ton/image.png)
+![Aperçu de l'application]([chemin/vers/ton/image.png](https://github.com/FyrielBlt/creditscoring/blob/main/c1.PNG))
 
 ![Aperçu de l'application](chemin/vers/ton/image.png)
 Une fois prêt, l'utilisateur peut télécharger un fichier de données au format CSV qu'il soumet à
