@@ -1,5 +1,6 @@
 # creditscoring
 📚 Introduction
+
 Notre projet, mené au sein d'une entreprise de technologies financières, vise à améliorer la prise de décision d'octroi de crédit en utilisant des techniques de machine learning.
 En exploitant les données de la Banque Centrale de Madagascar et en suivant la méthodologie CRISP-DM, nous avons développé des modèles capables de classifier les demandes de crédit en trois catégories : saines, en souffrance et douteuses, tout en fournissant un score de probabilité pour chaque classe.
 
@@ -8,10 +9,12 @@ Nous avons effectué un traitement approfondi des données pour construire ces m
 Mots-clés : Risque de crédit, Credit scoring, Apprentissage automatique, Modélisation prédictive, Classification, Méthodologie CRISP-DM.
 
 📊 Analyse, traitement des données et développement des modèles
+
 Vous trouverez l'intégralité de l'analyse, du traitement des données ainsi que du développement des modèles dans le fichier :
 👉 Untitled63 (1) (1).ipynb
 
 🚀 Déploiement du modèle avec Flask
+
 Nous avons également développé une application Flask pour déployer notre modèle, que vous pouvez retrouver dans le dossier :
 👉 Predict/
 
@@ -51,7 +54,8 @@ L’utilisateur a également la possibilité de contacter le groupe BFI pour plu
 d'assistance.
 ![Aperçu de l'application](https://github.com/FyrielBlt/creditscoring/blob/main/c5.PNG)
 
-📚 Conclusion 
+📚 Conclusion
+
 Après une immersion approfondie dans le domaine métier et les concepts clés, nous avons procédé
 au traitement des données en sélectionnant avec rigueur les variables les plus pertinentes à l'aide
 de tests statistiques tels que le test du chi2 et le test de Kruskal-Wallis. L'utilisation de techniques
