@@ -6,6 +6,7 @@ En exploitant les données de la Banque Centrale de Madagascar et en suivant la 
 Nous avons effectué un traitement approfondi des données pour construire ces modèles. Finalement, nous avons constaté que le modèle XGBoost donnait les meilleurs résultats. Nous l'avons donc intégré dans notre application Flask pour une mise en œuvre pratique.
 
 Mots-clés : Risque de crédit, Credit scoring, Apprentissage automatique, Modélisation prédictive, Classification, Méthodologie CRISP-DM.
+
 📊 Analyse, traitement des données et développement des modèles
 Vous trouverez l'intégralité de l'analyse, du traitement des données ainsi que du développement des modèles dans le fichier :
 👉 Untitled63 (1) (1).ipynb
@@ -49,6 +50,7 @@ ainsi une expérience utilisateur fluide et personnalisée.
 L’utilisateur a également la possibilité de contacter le groupe BFI pour plus d'informations ou
 d'assistance.
 ![Aperçu de l'application](https://github.com/FyrielBlt/creditscoring/blob/main/c5.PNG)
+
 📚 Conclusion 
 Après une immersion approfondie dans le domaine métier et les concepts clés, nous avons procédé
 au traitement des données en sélectionnant avec rigueur les variables les plus pertinentes à l'aide
